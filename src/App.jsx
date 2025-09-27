@@ -7,6 +7,10 @@ export default function App() {
   // Models
   const [status, setStatus] = useState(0);
   const [products, setProduct] = useState([]);
+  const [shop, setShop] = useState({
+    name: 'fakeStoreShop',
+    location: 'Iran Tehran'
+  });
 
   // api
   useEffect(() => {
@@ -33,7 +37,8 @@ export default function App() {
 
   // jsx
   return (
-    <div className="">
+    <div className="w-full">
+      <Header />
       <p>status : {status}</p>
       <div className="">
         {products.map((product)=>(
