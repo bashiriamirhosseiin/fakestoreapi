@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Cart from "./components/Cart";
 import Header from "./components/header";
+import Categories from "./components/Categories";
 
 
 export default function App() {
@@ -57,6 +58,9 @@ export default function App() {
   return (
     <div className="w-full">
       <Header name={shop.name} location={shop.location} />
+      <Categories 
+        items={categories}
+      />
       <p>status : {status}</p>
       <div className="">
         {products.map((product) => (
