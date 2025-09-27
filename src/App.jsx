@@ -13,8 +13,8 @@ export default function App() {
   const [categoryFilter, setCategoryFilter] = useState(null);
   const [searchFilter, setSearchFilter] = useState(null);
   const [shop, setShop] = useState({
-    name: "fakeStoreShop",
-    location: "Iran Tehran",
+    name: "fakeShop",
+    location: "Iran, Tehran",
   });
 
   // api
@@ -58,7 +58,7 @@ export default function App() {
 
   // jsx
   return (
-    <div className="w-full">
+    <div className="w-full h-screen overflow-clip">
       <Header name={shop.name} location={shop.location} />
       <Categories 
         items={categories}

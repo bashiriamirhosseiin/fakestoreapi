@@ -5,8 +5,9 @@ export default function Categories ({items}) {
 
     return (
         <div className="">
-            {items.map((item) => (
+            {items.map((item, index) => (
                 <Category 
+                    key={index}
                     name={item}
                 />
             ))}
