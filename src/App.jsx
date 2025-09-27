@@ -10,6 +10,8 @@ export default function App() {
   const [status, setStatus] = useState(0);
   const [products, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState(null);
+  const [searchFilter, setSearchFilter] = useState(null);
   const [shop, setShop] = useState({
     name: "fakeStoreShop",
     location: "Iran Tehran",
