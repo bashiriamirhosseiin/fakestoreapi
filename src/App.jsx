@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import Cart from "./components/Cart";
 
 export default function App() {
 
@@ -34,6 +35,19 @@ export default function App() {
   return (
     <div className="">
       <p>status : {status}</p>
+      <div className="">
+        {products.map((product)=>(
+          <Cart 
+            key={product.id}
+            category={product.category}
+            description={product.description}
+            image={product.image}
+            price={product.price}
+            rating={product.rating}
+            title={product.title}
+          />
+        ))}
+      </div>
     </div>
   );
 }
