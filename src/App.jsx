@@ -39,6 +39,7 @@ export default function App() {
         {products.map((product)=>(
           <Cart 
             key={product.id}
+            id={product.id}
             category={product.category}
             description={product.description}
             image={product.image}

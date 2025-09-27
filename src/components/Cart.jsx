@@ -9,6 +9,7 @@ export default function Cart({id, category, description, image, price, rating, t
             <p>price : {price}</p>
             <p>rating count : {rating.count} rating rate : {rating.rate}</p>
             <p>title : {title}</p>
+            <hr />
         </div>
     )
 }
