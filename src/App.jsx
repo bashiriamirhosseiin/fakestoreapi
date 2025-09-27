@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Cart from "./components/Cart";
+import Header from "./components/header";
+
 
 export default function App() {
-
   // Models
   const [status, setStatus] = useState(0);
   const [products, setProduct] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [shop, setShop] = useState({
-    name: 'fakeStoreShop',
-    location: 'Iran Tehran'
+    name: "fakeStoreShop",
+    location: "Iran Tehran",
   });
 
   // api
@@ -26,26 +28,39 @@ export default function App() {
       });
   }, []);
 
-  // model tracker
+  // extract categoreis from products
+  useEffect(() => {
+    const uniqueCategories = [
+      ...new Set(
+        products
+          .map((product) => product.category)
+          .filter((category) => category && category.trim() !== "")
+      ),
+    ];
+    setCategories(uniqueCategories);
+  }, [products]);
+
+  // models tracker
   useEffect(() => {
     console.log("products", products);
   }, [products]);
 
   useEffect(() => {
-    console.log("products", status);
+    console.log("status", status);
   }, [status]);
+
+  useEffect(()=>{
+    console.log("categories", categories);
+  }, [categories])
 
   // jsx
   return (
     <div className="w-full">
-      <Header 
-        name={shop.name}
-        location={shop.location}
-      />
+      <Header name={shop.name} location={shop.location} />
       <p>status : {status}</p>
       <div className="">
-        {products.map((product)=>(
-          <Cart 
+        {products.map((product) => (
+          <Cart
             key={product.id}
             id={product.id}
             category={product.category}
