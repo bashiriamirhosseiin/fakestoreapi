@@ -38,7 +38,10 @@ export default function App() {
   // jsx
   return (
     <div className="w-full">
-      <Header />
+      <Header 
+        name={shop.name}
+        location={shop.location}
+      />
       <p>status : {status}</p>
       <div className="">
         {products.map((product)=>(
