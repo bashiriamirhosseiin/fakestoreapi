@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Cart from "./components/Cart";
 import Header from "./components/header";
 import Categories from "./components/Categories";
+import Products from "./components/Products";
 
 
 export default function App() {
@@ -58,26 +58,15 @@ export default function App() {
 
   // jsx
   return (
-    <div className="w-full h-screen overflow-clip">
+    <div className="w-full h-screen overflow-clip flex flex-col">
       <Header name={shop.name} location={shop.location} />
       <Categories 
         items={categories}
       />
-      <p>status : {status}</p>
-      <div className="">
-        {products.map((product) => (
-          <Cart
-            key={product.id}
-            id={product.id}
-            category={product.category}
-            description={product.description}
-            image={product.image}
-            price={product.price}
-            rating={product.rating}
-            title={product.title}
-          />
-        ))}
-      </div>
+      <Products 
+        items={products}  
+      />
+      
     </div>
   );
 }
