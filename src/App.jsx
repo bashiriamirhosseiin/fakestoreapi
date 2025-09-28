@@ -4,10 +4,26 @@ import Header from "./components/header";
 import Categories from "./components/Categories";
 import Products from "./components/Products";
 import Footer from "./components/Footer";
+import ProductModal from "./components/modals/ProductModal";
+
+
+
 
 
 export default function App() {
   // Models
+  const [openProductModal, setOpenProductModal] = useState(false);
+  const [productModal, setProductModal] = useState(null);
+
+  function handleProductModal(data) {
+    setProductModal(data);
+    setOpenProductModal(true);
+  }
+
+  function handleCloseProductModal() {
+    setOpenProductModal(false);
+  }
+
   const [status, setStatus] = useState(0);
   const [products, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -53,40 +69,53 @@ export default function App() {
     console.log("status", status);
   }, [status]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("categories", categories);
-  }, [categories])
+  }, [categories]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("categoryFilter", categoryFilter);
-  }, [categoryFilter])
+  }, [categoryFilter]);
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("categoryFilter", searchFilter);
-  }, [searchFilter])
+  }, [searchFilter]);
 
   // action handles
-  function handleCategoryClick (name) {
-      setCategoryFilter(name);
+  function handleCategoryClick(name) {
+    setCategoryFilter(name);
   }
 
-  function handleSearchClick (search) {
-      setSearchFilter(search.trim());
+  function handleSearchClick(search) {
+    setSearchFilter(search.trim());
   }
 
   // jsx
   return (
-    <div className="w-full h-screen overflow-clip flex flex-col">
-      <Header name={shop.name} location={shop.location} searchClick={handleSearchClick}/>
-      <Categories 
-        items={categories}
-        onClick={handleCategoryClick}
-        filter={categoryFilter}
+    <>
+      <ProductModal 
+        open={openProductModal}
+        data={productModal}
+        onClose={handleCloseProductModal}
       />
-      <Products 
-        items={products}  
-      />
-      <Footer />
-    </div>
+
+      <div className="w-full h-screen overflow-clip flex flex-col">
+        <Header
+          name={shop.name}
+          location={shop.location}
+          searchClick={handleSearchClick}
+        />
+        <Categories
+          items={categories}
+          onClick={handleCategoryClick}
+          filter={categoryFilter}
+        />
+        <Products
+          items={products}
+          onProductClick={handleProductModal}
+        />
+        <Footer />
+      </div>
+    </>
   );
 }
