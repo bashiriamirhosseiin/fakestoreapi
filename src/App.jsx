@@ -28,11 +28,13 @@ export default function App() {
   const [products, setProduct] = useState([]);
   const [categories, setCategories] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState(null);
-  const [searchFilter, setSearchFilter] = useState(null);
+  const [searchFilter, setSearchFilter] = useState("");
   const [shop, setShop] = useState({
     name: "fakeShop",
     location: "Iran, Tehran",
   });
+
+  const [showItems, setShowItems] = useState([]);
 
   // api
   useEffect(() => {
@@ -40,13 +42,35 @@ export default function App() {
       .get("https://fakestoreapi.com/products")
       .then((res) => {
         setProduct(res.data);
+        setShowItems(res.data);
+        setCategoryFilter(null);
+        setSearchFilter("");
         setStatus(res.status);
         console.log("res: ", res);
       })
       .catch((err) => {
         console.log("res: ", err);
+        setCategoryFilter(null);
+        setSearchFilter("");
       });
   }, []);
+
+  useEffect(()=>{
+    if(products.length > 0){
+      if(categoryFilter === "" && categoryFilter === null){
+        setShowItems(products);
+      }else{
+        var items = products;
+        if(categoryFilter !== null){
+          items = items.filter((item)=>item.category == categoryFilter);
+        }
+        if(searchFilter !== ""){
+          items = items.filter((item) => item.title.toLowerCase().includes(searchFilter.toLowerCase()));
+        }
+        setShowItems(items);
+      }
+    }
+    }, [categoryFilter, searchFilter])
 
   // extract categoreis from products
   useEffect(() => {
@@ -111,7 +135,7 @@ export default function App() {
           filter={categoryFilter}
         />
         <Products
-          items={products}
+          items={showItems}
           onProductClick={handleProductModal}
         />
         <Footer />
