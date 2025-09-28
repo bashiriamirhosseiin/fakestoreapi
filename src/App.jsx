@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Header from "./components/header";
 import Categories from "./components/Categories";
 import Products from "./components/Products";
+import Footer from "./components/Footer";
 
 
 export default function App() {
@@ -66,7 +67,7 @@ export default function App() {
       <Products 
         items={products}  
       />
-      
+      <Footer />
     </div>
   );
 }

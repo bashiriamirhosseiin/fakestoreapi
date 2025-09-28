@@ -3,7 +3,7 @@ import { TiStarFullOutline } from "react-icons/ti";
 
 export default function Product({id,category,description,image,price,rating,title}) {
   return (
-    <div className="w-[140px] p-2 flex flex-col ">
+    <div className="w-[140px] p-2 flex flex-col">
       <div className="relative w-full h-[130px] rounded-2xl overflow-clip p-2 mb-2 shadow-md">
         <img className="object-contain object-center" src={image} alt="" />
         <div className="absolute top-0 right-0 py-1 px-3 flex gap-1 items-center text-xs bg-[#92542e] text-white rounded-bl-2xl">

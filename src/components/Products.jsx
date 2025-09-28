@@ -2,7 +2,7 @@ import Product from "./Product";
 
 export default function Products({ items }) {
   return (
-      <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between overflow-y-auto">
+      <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-evenly overflow-y-auto">
         {items.map((item) => (
           <Product
             key={item.id}
