@@ -61,18 +61,27 @@ export default function App() {
     console.log("categoryFilter", categoryFilter);
   }, [categoryFilter])
 
+  useEffect(()=>{
+    console.log("categoryFilter", searchFilter);
+  }, [searchFilter])
+
   // action handles
   function handleCategoryClick (name) {
       setCategoryFilter(name);
   }
 
+  function handleSearchClick (search) {
+      setSearchFilter(search.trim());
+  }
+
   // jsx
   return (
     <div className="w-full h-screen overflow-clip flex flex-col">
-      <Header name={shop.name} location={shop.location} />
+      <Header name={shop.name} location={shop.location} searchClick={handleSearchClick}/>
       <Categories 
         items={categories}
         onClick={handleCategoryClick}
+        filter={categoryFilter}
       />
       <Products 
         items={products}  
