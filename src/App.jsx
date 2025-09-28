@@ -57,12 +57,22 @@ export default function App() {
     console.log("categories", categories);
   }, [categories])
 
+  useEffect(()=>{
+    console.log("categoryFilter", categoryFilter);
+  }, [categoryFilter])
+
+  // action handles
+  function handleCategoryClick (name) {
+      setCategoryFilter(name);
+  }
+
   // jsx
   return (
     <div className="w-full h-screen overflow-clip flex flex-col">
       <Header name={shop.name} location={shop.location} />
       <Categories 
         items={categories}
+        onClick={handleCategoryClick}
       />
       <Products 
         items={products}  
