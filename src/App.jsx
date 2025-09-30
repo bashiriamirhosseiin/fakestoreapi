@@ -5,10 +5,8 @@ import Categories from "./components/Categories";
 import Products from "./components/Products";
 import Footer from "./components/Footer";
 import ProductModal from "./components/modals/ProductModal";
-
-
-
-
+import CategoriesLoading from "./components/CategoriesLoading";
+import ProductsLoading from "./components/ProductsLoading";
 
 export default function App() {
   // Models
@@ -34,6 +32,8 @@ export default function App() {
     location: "Iran, Tehran",
   });
 
+  const [loading, setLoading] = useState(true);
+
   const [showItems, setShowItems] = useState([]);
 
   // api
@@ -46,31 +46,32 @@ export default function App() {
         setCategoryFilter(null);
         setSearchFilter("");
         setStatus(res.status);
-        console.log("res: ", res);
+        setLoading(false);
       })
       .catch((err) => {
-        console.log("res: ", err);
         setCategoryFilter(null);
         setSearchFilter("");
       });
   }, []);
 
-  useEffect(()=>{
-    if(products.length > 0){
-      if(categoryFilter === "" && categoryFilter === null){
+  useEffect(() => {
+    if (products.length > 0) {
+      if (categoryFilter === "" && categoryFilter === null) {
         setShowItems(products);
-      }else{
+      } else {
         var items = products;
-        if(categoryFilter !== null){
-          items = items.filter((item)=>item.category == categoryFilter);
+        if (categoryFilter !== null) {
+          items = items.filter((item) => item.category == categoryFilter);
         }
-        if(searchFilter !== ""){
-          items = items.filter((item) => item.title.toLowerCase().includes(searchFilter.toLowerCase()));
+        if (searchFilter !== "") {
+          items = items.filter((item) =>
+            item.title.toLowerCase().includes(searchFilter.toLowerCase())
+          );
         }
         setShowItems(items);
       }
     }
-    }, [categoryFilter, searchFilter])
+  }, [categoryFilter, searchFilter]);
 
   // extract categoreis from products
   useEffect(() => {
@@ -117,7 +118,7 @@ export default function App() {
   // jsx
   return (
     <>
-      <ProductModal 
+      <ProductModal
         open={openProductModal}
         data={productModal}
         onClose={handleCloseProductModal}
@@ -129,15 +130,22 @@ export default function App() {
           location={shop.location}
           searchClick={handleSearchClick}
         />
-        <Categories
-          items={categories}
-          onClick={handleCategoryClick}
-          filter={categoryFilter}
-        />
-        <Products
-          items={showItems}
-          onProductClick={handleProductModal}
-        />
+        {loading ? (
+          <CategoriesLoading />
+        ) : (
+          <Categories
+            items={categories}
+            onClick={handleCategoryClick}
+            filter={categoryFilter}
+          />
+        )}
+
+        {loading ? (
+          <ProductsLoading />
+        ) : (
+          <Products items={showItems} onProductClick={handleProductModal} />
+        )}
+
         <Footer />
       </div>
     </>
