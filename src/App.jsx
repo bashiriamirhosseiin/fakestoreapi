@@ -1,35 +1,139 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState, useCallback } from "react";
+import axios from "axios";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Header from "./components/header";
+import Categories from "./components/Categories";
+import Products from "./components/Products";
+import Footer from "./components/Footer";
+import ProductModal from "./components/modals/ProductModal";
+import CategoriesLoading from "./components/CategoriesLoading";
+import ProductsLoading from "./components/ProductsLoading";
+import Error from "./components/Error";
 
+export default function App() {
+  // Models
+  const [openProductModal, setOpenProductModal] = useState(false);
+  const [productModal, setProductModal] = useState(null);
+
+  const handleProductModal = useCallback((data) => {
+    setProductModal(data);
+    setOpenProductModal(true);
+  }, []);
+
+  const handleCloseProductModal = useCallback(() => {
+    setOpenProductModal(false);
+  }, []);
+
+  const [status, setStatus] = useState(0);
+  const [products, setProduct] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [categoryFilter, setCategoryFilter] = useState(null);
+  const [searchFilter, setSearchFilter] = useState("");
+  const [shop, setShop] = useState({
+    name: "fakeShop",
+    location: "Iran, Tehran",
+  });
+
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const [showItems, setShowItems] = useState([]);
+
+  // api
+  useEffect(() => {
+    axios
+      .get("https://fakestoreapi.com/products")
+      .then((res) => {
+        setProduct(res.data);
+        setShowItems(res.data);
+        setCategoryFilter(null);
+        setSearchFilter("");
+        setStatus(res.status);
+        setLoading(false);
+        setError(false);
+      })
+      .catch((err) => {
+        setCategoryFilter(null);
+        setSearchFilter("");
+        setError(true);
+        setStatus(err?.status);
+      });
+  }, []);
+
+  useEffect(() => {
+    if (products.length > 0) {
+      if (categoryFilter === "" && categoryFilter === null) {
+        setShowItems(products);
+      } else {
+        var items = products;
+        if (categoryFilter !== null) {
+          items = items.filter((item) => item.category == categoryFilter);
+        }
+        if (searchFilter !== "") {
+          items = items.filter((item) =>
+            item.title.toLowerCase().includes(searchFilter.toLowerCase())
+          );
+        }
+        setShowItems(items);
+      }
+    }
+  }, [categoryFilter, searchFilter, products]);
+
+  // extract categoreis from products
+  useEffect(() => {
+    const uniqueCategories = [
+      ...new Set(
+        products
+          .map((product) => product.category)
+          .filter((category) => category && category.trim() !== "")
+      ),
+    ];
+    setCategories(uniqueCategories);
+  }, [products]);
+
+  // action handles
+  const handleCategoryClick = useCallback((name) => {
+    setCategoryFilter(name);
+  }, []);
+
+  const handleSearchClick = useCallback((search) => {
+    setSearchFilter(search.trim());
+  }, [])
+
+  // jsx
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+      {error && <Error status={status}/>}
+      <ProductModal
+        open={openProductModal}
+        data={productModal}
+        onClose={handleCloseProductModal}
+      />
 
-export default App
+      <div className="w-full h-screen overflow-clip flex flex-col">
+        <Header
+          name={shop.name}
+          location={shop.location}
+          searchClick={handleSearchClick}
+        />
+        {loading ? (
+          <CategoriesLoading />
+        ) : (
+          <Categories
+            items={categories}
+            onClick={handleCategoryClick}
+            filter={categoryFilter}
+          />
+        )}
+
+        {loading ? (
+          <ProductsLoading />
+        ) : (
+          <Products items={showItems} onProductClick={handleProductModal} />
+        )}
+
+        <Footer />
+      </div>
+    </>
+  );
+}
