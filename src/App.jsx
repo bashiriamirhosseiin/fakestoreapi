@@ -1,5 +1,6 @@
-import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
+import axios from "axios";
+
 import Header from "./components/header";
 import Categories from "./components/Categories";
 import Products from "./components/Products";
@@ -89,27 +90,6 @@ export default function App() {
     ];
     setCategories(uniqueCategories);
   }, [products]);
-
-  // models tracker
-  useEffect(() => {
-    console.log("products", products);
-  }, [products]);
-
-  useEffect(() => {
-    console.log("status", status);
-  }, [status]);
-
-  useEffect(() => {
-    console.log("categories", categories);
-  }, [categories]);
-
-  useEffect(() => {
-    console.log("categoryFilter", categoryFilter);
-  }, [categoryFilter]);
-
-  useEffect(() => {
-    console.log("categoryFilter", searchFilter);
-  }, [searchFilter]);
 
   // action handles
   const handleCategoryClick = useCallback((name) => {
