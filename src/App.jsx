@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Header from "./components/header";
 import Categories from "./components/Categories";
 import Products from "./components/Products";
@@ -7,20 +7,21 @@ import Footer from "./components/Footer";
 import ProductModal from "./components/modals/ProductModal";
 import CategoriesLoading from "./components/CategoriesLoading";
 import ProductsLoading from "./components/ProductsLoading";
+import Error from "./components/Error";
 
 export default function App() {
   // Models
   const [openProductModal, setOpenProductModal] = useState(false);
   const [productModal, setProductModal] = useState(null);
 
-  function handleProductModal(data) {
+  const handleProductModal = useCallback((data) => {
     setProductModal(data);
     setOpenProductModal(true);
-  }
+  }, []);
 
-  function handleCloseProductModal() {
+  const handleCloseProductModal = useCallback(() => {
     setOpenProductModal(false);
-  }
+  }, []);
 
   const [status, setStatus] = useState(0);
   const [products, setProduct] = useState([]);
@@ -33,6 +34,7 @@ export default function App() {
   });
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const [showItems, setShowItems] = useState([]);
 
@@ -47,10 +49,13 @@ export default function App() {
         setSearchFilter("");
         setStatus(res.status);
         setLoading(false);
+        setError(false);
       })
       .catch((err) => {
         setCategoryFilter(null);
         setSearchFilter("");
+        setError(true);
+        setStatus(err?.status);
       });
   }, []);
 
@@ -71,7 +76,7 @@ export default function App() {
         setShowItems(items);
       }
     }
-  }, [categoryFilter, searchFilter]);
+  }, [categoryFilter, searchFilter, products]);
 
   // extract categoreis from products
   useEffect(() => {
@@ -107,17 +112,18 @@ export default function App() {
   }, [searchFilter]);
 
   // action handles
-  function handleCategoryClick(name) {
+  const handleCategoryClick = useCallback((name) => {
     setCategoryFilter(name);
-  }
+  }, []);
 
-  function handleSearchClick(search) {
+  const handleSearchClick = useCallback((search) => {
     setSearchFilter(search.trim());
-  }
+  }, [])
 
   // jsx
   return (
     <>
+      {error && <Error status={status}/>}
       <ProductModal
         open={openProductModal}
         data={productModal}
