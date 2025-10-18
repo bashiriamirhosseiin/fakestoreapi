@@ -32,9 +32,6 @@ export default function HomePage() {
         )
     }
 
-    console.log(data);
-    
-
     return (
         <div className="">
             {data.map((item, index)=>(
