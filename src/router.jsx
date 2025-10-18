@@ -6,6 +6,8 @@ import { lazy } from "react";
 import Layout from "./components/Layout";
 
 const HomePage = lazy(() => import("./features/home/HomePage"));
+const SingleProduct = lazy(()=> import("./features/singleProduct/SingleProduct"));
+
 
 const router = createBrowserRouter([
     {
@@ -15,6 +17,10 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <HomePage />
+            },
+            {
+                path: "product/:id",
+                element: <SingleProduct />
             }
         ]
     }
