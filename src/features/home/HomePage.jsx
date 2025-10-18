@@ -2,6 +2,9 @@
 import { useQuery } from "@tanstack/react-query"
 import api from "../../tools/api"
 
+// components
+import ProductItem from "./components/ProductItem";
+
 export default function HomePage() {
 
     async function queryFn() {
@@ -34,7 +37,19 @@ export default function HomePage() {
 
     return (
         <div className="">
-            <p>This is home page</p>
+            {data.map((item, index)=>(
+                <ProductItem 
+                    key={index}
+                    id={item.id} 
+                    title={item.title} 
+                    description={item.description} 
+                    image={item.image} 
+                    price={item.price} 
+                    rate={item.rating.rate} 
+                    rateCount={item.rating.count} 
+                />
+            ))}
+            
         </div>
     )
 }
