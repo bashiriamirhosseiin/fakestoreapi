@@ -2,6 +2,7 @@
 import { useParams } from "react-router-dom"
 import api from "../../tools/api";
 import { useQuery } from "@tanstack/react-query";
+import CartButtons from "../../components/CartButtons";
 
 export default function SingleProduct(){
 
@@ -41,6 +42,7 @@ export default function SingleProduct(){
             <p>{data.description}</p>
             <p>{data.price}$</p>
             <p>{data.rating.rate}({data.rating.count})</p>
+            <CartButtons id={data.id}/>
         </div>
     )
 }

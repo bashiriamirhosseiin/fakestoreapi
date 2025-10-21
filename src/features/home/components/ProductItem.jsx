@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom"
+import CartButtons from "../../../components/CartButtons"
 
 export default function ProductItem({
     id, 
@@ -19,6 +20,7 @@ export default function ProductItem({
             <p>{description}</p>
             <p>{rate}({rateCount})</p>
             <p>{price}$</p>
+            <CartButtons id={id}/>
         </div>
     )
 }
