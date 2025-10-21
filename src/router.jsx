@@ -7,6 +7,7 @@ import Layout from "./components/Layout";
 
 const HomePage = lazy(() => import("./features/home/HomePage"));
 const SingleProduct = lazy(()=> import("./features/singleProduct/SingleProduct"));
+const CartPage = lazy(()=> import("./features/cart/CartPage"));
 
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
             {
                 path: "product/:id",
                 element: <SingleProduct />
+            },
+            {
+                path: "cart",
+                element: <CartPage />
             }
         ]
     }
