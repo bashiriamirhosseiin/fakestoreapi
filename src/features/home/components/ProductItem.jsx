@@ -1,5 +1,9 @@
+// dep...
 import { useNavigate } from "react-router-dom"
+
+// components
 import CartButtons from "../../../components/CartButtons"
+import WishlistBtn from "../../../components/WishlistBtn"
 
 export default function ProductItem({
     id, 
@@ -20,7 +24,8 @@ export default function ProductItem({
             <p>{description}</p>
             <p>{rate}({rateCount})</p>
             <p>{price}$</p>
-            <CartButtons id={id}/>
+            <CartButtons id={id} />
+            <WishlistBtn id={id} />
         </div>
     )
 }

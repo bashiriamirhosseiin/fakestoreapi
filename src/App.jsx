@@ -11,16 +11,21 @@ const queryClient = new QueryClient();
 
 // store
 import useCart from "./store/useCart";
+import useWishlist from "./store/useWishlist";
 
 
 function App() {
 
   const {cart} = useCart()
+  const {wishlist} = useWishlist()
 
   useEffect(()=>{
-    console.log(cart);
     localStorage.setItem('cart', JSON.stringify(cart))
   }, [cart])
+
+  useEffect(()=>{
+    localStorage.setItem('wishlist', JSON.stringify(wishlist))
+  }, [wishlist])
 
   return (
     <>
