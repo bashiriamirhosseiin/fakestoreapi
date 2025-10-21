@@ -4,6 +4,8 @@ import api from "../../tools/api"
 
 // components
 import ProductItem from "./components/ProductItem";
+import MainHeader from "../../components/header/MainHeader";
+import Footer from "../../components/Footer";
 
 export default function HomePage() {
 
@@ -33,8 +35,16 @@ export default function HomePage() {
     }
 
     return (
-        <div className="">
-            {data.map((item, index)=>(
+        <div className="h-full flex flex-col">
+            <div className="w-full">
+                <MainHeader />
+            </div>
+            <div className="w-full grow-1 h-full flex flex-col justify-between">
+                <div className="w-full grow-1 bg-green-500">content</div>
+                <Footer />
+            </div>
+          
+            {/* {data.map((item, index)=>(
                 <ProductItem 
                     key={index}
                     id={item.id} 
@@ -45,7 +55,7 @@ export default function HomePage() {
                     rate={item.rating.rate} 
                     rateCount={item.rating.count} 
                 />
-            ))}
+            ))} */}
             
         </div>
     )
