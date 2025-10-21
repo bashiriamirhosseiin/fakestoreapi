@@ -1,16 +1,10 @@
 // dep...
 import { Outlet } from "react-router-dom";
 
-// components
-import Footer from "./Footer";
-import Header from "./Header";
-
 export default function Layout(){
     return (
-        <div className="">
-            <Header />
+        <div className="max-w-[400px] mx-auto h-screen">
             <Outlet />
-            <Footer />
         </div>
     )
 }
