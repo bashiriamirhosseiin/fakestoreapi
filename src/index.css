@@ -1,1 +1,8 @@
 @import "tailwindcss";
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+.bg-header {
+    background-image: linear-gradient(to bottom left, #111, #313131);
+}
