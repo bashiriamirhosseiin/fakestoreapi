@@ -16,11 +16,13 @@ export default function CartButtons({id}){
     }, [cart])
 
     // functions...
-    const handleRemoveFromCart = useCallback(()=>{
+    const handleRemoveFromCart = useCallback((e)=>{
+        e.stopPropagation();
         remove(id);
     }, [])
 
-    const handleAddToCart = useCallback(()=>{
+    const handleAddToCart = useCallback((e)=>{
+        e.stopPropagation();
         add(id);
     }, [])
 
@@ -28,7 +30,7 @@ export default function CartButtons({id}){
     if(status){
     
         return (
-            <button onClick={handleRemoveFromCart}>
+            <button onClick={(e)=>{handleRemoveFromCart(e)}}>
                 removeFromCart
             </button>
         )
@@ -36,7 +38,7 @@ export default function CartButtons({id}){
     }else{
 
         return (
-            <button onClick={handleAddToCart}>
+            <button onClick={(e)=>{handleAddToCart(e)}}>
                 Add To Cart
             </button>
         )
