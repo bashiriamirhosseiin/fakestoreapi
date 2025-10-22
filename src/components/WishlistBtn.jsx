@@ -4,7 +4,11 @@ import { useCallback, useEffect, useState } from "react";
 // store
 import useWishlist from "../store/useWishlist";
 
-export default function WishlistBtn({id}) {
+// icons
+import { IoHeartOutline } from "react-icons/io5";
+import { GoHeartFill } from "react-icons/go";
+
+export default function WishlistBtn({ id }) {
   const [status, setStatus] = useState(false);
   const { wishlist, add, remove } = useWishlist();
 
@@ -25,23 +29,24 @@ export default function WishlistBtn({id}) {
 
   if (status) {
     return (
-      <button
-        onClick={(e) => {
-          handleRemoveFromCart(e);
+      <GoHeartFill
+        size={19}
+        color="#930000"
+        onClick={() => {
+          remove(id);
         }}
-      >
-        remove from wishlist
-      </button>
+        className="cursor-pointer"
+      />
     );
   } else {
     return (
-      <button
-        onClick={(e) => {
-          handleAddToCart(e);
+      <IoHeartOutline
+        size={19}
+        onClick={() => {
+          add(id);
         }}
-      >
-        add to wishlist
-      </button>
+        className="cursor-pointer"
+      />
     );
   }
 }
