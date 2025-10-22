@@ -20,7 +20,6 @@ export default function HomePage() {
     return res;
   }
 
-  // ✅ useQuery برای مدیریت وضعیت‌ها
   const { data, isLoading } = useQuery({
     queryKey: ["all-products"],
     queryFn,

@@ -9,44 +9,59 @@ import useWishlist from "../../store/useWishlist";
 // components
 import ThirdHeader from "../../components/header/ThirdHeader";
 import WishlistItem from "./components/WishlistItem";
+import ProductLoading from "../../components/loadings/ProductLoading";
+import Error from "../../components/Error";
 
 export default function WishlistPage() {
   const [showItems, setShowItems] = useState([]);
+  const [error, setError] = useState(false);
+
   const { wishlist, clear } = useWishlist();
 
   async function queryFn() {
     return await api.get("products");
   }
 
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["all-products"],
     queryFn,
   });
 
   useEffect(() => {
-    if (!isLoading && data) {
-      const items = wishlist.map((itemId) => {
-        const product = data.find((p) => p.id == itemId);
-        return {
-          ...product,
-        };
-      });
-      setShowItems(items);
+    if (data && data?.status) {
+      setError(true);
+    } else {
+      if (!isLoading && data) {
+        const items = wishlist.map((itemId) => {
+          const product = data.find((p) => p.id == itemId);
+          return {
+            ...product,
+          };
+        });
+        setShowItems(items);
+      }
     }
   }, [data, wishlist]);
 
   if (isLoading) {
     return (
-      <div className="">
-        <p>Loading...</p>
+      <div className="h-full grid grid-rows-[auto_1fr_auto]">
+        <ThirdHeader title={"Wish List"} />
+        <div className="overflow-clip pt-4 px-[6.4%]">
+          <ProductLoading />
+        </div>
       </div>
     );
   }
 
-  if (isError) {
+  if (error) {
     return (
-      <div className="">
-        <p>Error...</p>
+      <div className="h-full grid grid-rows-[auto_1fr_auto]">
+        <ThirdHeader title={"Wish List"} />
+        <div className="overflow-clip pt-4 px-[6.4%]">
+          <ProductLoading />
+        </div>
+        <Error />
       </div>
     );
   }
@@ -58,19 +73,19 @@ export default function WishlistPage() {
       </div>
       <div className="overflow-auto pt-4">
         <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between">
-            {showItems?.map((item) => (
-              <WishlistItem
-                key={item.id}
-                id={item.id}
-                category={item.category}
-                title={item.title}
-                description={item.description}
-                image={item.image}
-                price={item.price}
-                rate={item.rating.rate}
-                rateCount={item.rating.count}
-              />
-            ))}
+          {showItems?.map((item) => (
+            <WishlistItem
+              key={item.id}
+              id={item.id}
+              category={item.category}
+              title={item.title}
+              description={item.description}
+              image={item.image}
+              price={item.price}
+              rate={item.rating.rate}
+              rateCount={item.rating.count}
+            />
+          ))}
         </div>
       </div>
       <div className="w-full px-[6.4%]">
