@@ -7,8 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import useWishlist from "../../store/useWishlist";
 
 // components
-import ProductItem from "../home/components/ProductItem";
 import ThirdHeader from "../../components/header/ThirdHeader";
+import WishlistItem from "./components/WishlistItem";
 
 export default function WishlistPage() {
   const [showItems, setShowItems] = useState([]);
@@ -58,9 +58,9 @@ export default function WishlistPage() {
       </div>
       <div className="overflow-auto pt-4">
         <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between">
-            {showItems.map((item, index) => (
-              <ProductItem
-                key={index}
+            {showItems.map((item) => (
+              <WishlistItem
+                key={item.id}
                 id={item.id}
                 category={item.category}
                 title={item.title}
