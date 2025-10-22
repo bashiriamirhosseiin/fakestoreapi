@@ -24,7 +24,7 @@ export default function Search() {
         onClick={() => {
           setSearch("");
         }}
-        className="shrink-0 w-[52px] h-[52px] bg-[#C67C4E] rounded-2xl flex justify-center items-center cursor-pointer"
+        className={search.length > 0 ? "transition-colors duration-300 shrink-0 w-[52px] h-[52px] bg-[#C67C4E] rounded-2xl flex justify-center items-center cursor-pointer" : "transition-colors duration-300 shrink-0 w-[52px] h-[52px] bg-[#c67c4e86] rounded-2xl flex justify-center items-center cursor-pointer"}
       >
         <RiResetLeftFill color="white" size={24} />
       </div>
