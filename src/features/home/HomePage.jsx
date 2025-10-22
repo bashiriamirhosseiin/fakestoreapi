@@ -7,6 +7,9 @@ import ProductItem from "./components/ProductItem";
 import MainHeader from "../../components/header/MainHeader";
 import Footer from "../../components/Footer";
 
+// loadings
+import ProductLoading from "../../components/loadings/ProductLoading";
+
 export default function HomePage() {
   async function queryFn() {
     return await api.get("products");
@@ -16,14 +19,6 @@ export default function HomePage() {
     queryKey: ["all-products"],
     queryFn,
   });
-
-  if (isLoading) {
-    return (
-      <div className="">
-        <p>Loading...</p>
-      </div>
-    );
-  }
 
   if (isError) {
     return (
@@ -40,19 +35,21 @@ export default function HomePage() {
       </div>
       <div className="overflow-auto pt-4">
         <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between">
-          {data?.map((item, index) => (
-            <ProductItem
-              key={item.id}
-              id={item.id}
-              category={item.category}
-              title={item.title}
-              description={item.description}
-              image={item.image}
-              price={item.price}
-              rate={item.rating.rate}
-              rateCount={item.rating.count}
-            />
-          ))}
+          { isLoading ? <ProductLoading /> : "" }
+          { !isLoading && !isError && data ? 
+            data?.map((item) => (
+              <ProductItem
+                key={item.id}
+                id={item.id}
+                category={item.category}
+                title={item.title}
+                description={item.description}
+                image={item.image}
+                price={item.price}
+                rate={item.rating.rate}
+                rateCount={item.rating.count}
+              />
+          )):""}  
         </div>
       </div>
       <Footer />
