@@ -40,9 +40,9 @@ export default function HomePage() {
       </div>
       <div className="overflow-auto pt-4">
         <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between">
-          {data.map((item, index) => (
+          {data?.map((item, index) => (
             <ProductItem
-              key={index}
+              key={item.id}
               id={item.id}
               category={item.category}
               title={item.title}

@@ -16,7 +16,10 @@ const useCart = create((set)=>{
             })
         },
         clear: () => {
-            return {cart: []}
+            set(()=> {
+                return {cart: []}
+            })
+            
         },
         increase: (id) => {
             set((state) => {

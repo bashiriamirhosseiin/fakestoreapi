@@ -58,7 +58,7 @@ export default function WishlistPage() {
       </div>
       <div className="overflow-auto pt-4">
         <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between">
-            {showItems.map((item) => (
+            {showItems?.map((item) => (
               <WishlistItem
                 key={item.id}
                 id={item.id}
