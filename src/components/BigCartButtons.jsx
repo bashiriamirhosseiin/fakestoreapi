@@ -8,7 +8,7 @@ import useCart from "../store/useCart";
 import { LuPlus } from "react-icons/lu";
 import { BsX } from "react-icons/bs";
 
-export default function CartButtons({id}){
+export default function BigCartBtn({id}){
     
     const [status, setStatus] = useState(false);
     const {cart, add, remove} = useCart();
@@ -37,17 +37,13 @@ export default function CartButtons({id}){
     if(status){
     
         return (
-            <button onClick={(e)=>{handleRemoveFromCart(e)}} className=" cursor-pointer transition-colors duration-300 text-white bg-red-800 flex justify-center items-center w-[34px] h-[34px] shrink-0 rounded-xl">
-                <BsX size={25}/>
-            </button>
+<div onClick={handleRemoveFromCart}  className="cursor-pointer transition-colors duration-300 shrink-0 w-[65%] h-[55px] rounded-2xl bg-red-800 text-white font-semibold flex justify-center items-center">Remove Now</div>
         )
 
     }else{
 
         return (
-            <button onClick={(e)=>{handleAddToCart(e)}} className=" cursor-pointer transition-colors duration-300 text-white bg-[#C67C4E] flex justify-center items-center w-[34px] h-[34px] shrink-0 rounded-xl">
-                <LuPlus />
-            </button>
+         <div onClick={handleAddToCart} className="cursor-pointer transition-colors duration-300 shrink-0 w-[65%] h-[55px] rounded-2xl bg-[#C67C4E] text-white font-semibold flex justify-center items-center">Buy Now</div>
         )
 
     }

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import CartButtons from "../../components/CartButtons";
 import SecHeader from "../../components/header/SecHeader";
 import { TiStarFullOutline } from "react-icons/ti";
+import BigCartBtn from "../../components/BigCartButtons";
 
 export default function SingleProduct() {
   // get id param:
@@ -72,6 +73,7 @@ export default function SingleProduct() {
             <p className="text-sm font-semibold text-[#666]">Price</p>
             <p className="text-lg font-bold text-[#C67C4E]">${data?.price}</p>
           </div>
+          <BigCartBtn id={data.id} />
         </div>
       </div>
     </div>
