@@ -33,7 +33,7 @@ export default function HomePage() {
     );
   }
 
- return (
+  return (
     <div className="h-full grid grid-rows-[auto_1fr_auto]">
       <div className="w-full">
         <MainHeader />
