@@ -22,7 +22,7 @@ export default function CartPage() {
   const { cart } = useCart();
 
   async function queryFn() {
-    return await api.get("products");
+    return await api.get("prdoducts");
   }
 
   const { data, isLoading } = useQuery({
@@ -88,8 +88,8 @@ export default function CartPage() {
         <div className="px-[6.4%] py-2">
           <hr className="w-full text-gray-400" />
         </div>
-        <div className="w-full px-[6.4%] overflow-auto grow-1">
-          {/*  */}
+        <div className="w-full px-[6.4%] overflow-hidden grow-1">
+          <CartLoading />
         </div>
         <div className="px-[6.4%] py-2">
           <hr className="w-full text-gray-400" />
