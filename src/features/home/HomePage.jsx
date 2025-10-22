@@ -1,5 +1,6 @@
-// dep...
+// deps
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 import api from "../../tools/api";
 
 // components
@@ -9,21 +10,47 @@ import Footer from "../../components/Footer";
 
 // loadings
 import ProductLoading from "../../components/loadings/ProductLoading";
+import Error from "../../components/Error";
 
 export default function HomePage() {
+  const [error, setError] = useState(false);
+
   async function queryFn() {
-    return await api.get("products");
+    const res = await api.get("products");
+    return res;
   }
 
-  const { data, isLoading, isError } = useQuery({
+  // ✅ useQuery برای مدیریت وضعیت‌ها
+  const { data, isLoading } = useQuery({
     queryKey: ["all-products"],
     queryFn,
   });
 
-  if (isError) {
+  useEffect(() => {
+    if (data && data?.status) {
+      setError(true);
+    }
+  }, [data]);
+
+  if (isLoading) {
     return (
-      <div className="">
-        <p>Error...</p>
+      <div className="h-full grid grid-rows-[auto_1fr_auto]">
+        <MainHeader />
+        <div className="overflow-clip pt-4 px-[6.4%]">
+          <ProductLoading />
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="h-full grid grid-rows-[auto_1fr_auto]">
+        <MainHeader />
+        <div className="overflow-clip pt-4 px-[6.4%]">
+          <ProductLoading />
+        </div>
+        <Error />
       </div>
     );
   }
@@ -35,21 +62,19 @@ export default function HomePage() {
       </div>
       <div className="overflow-auto pt-4">
         <div className="w-full px-[25px] flex gap-[15px] flex-wrap justify-between">
-          { isLoading ? <ProductLoading /> : "" }
-          { !isLoading && !isError && data ? 
-            data?.map((item) => (
-              <ProductItem
-                key={item.id}
-                id={item.id}
-                category={item.category}
-                title={item.title}
-                description={item.description}
-                image={item.image}
-                price={item.price}
-                rate={item.rating.rate}
-                rateCount={item.rating.count}
-              />
-          )):""}  
+          {data?.map?.((item) => (
+            <ProductItem
+              key={item?.id}
+              id={item?.id}
+              category={item?.category}
+              title={item?.title}
+              description={item?.description}
+              image={item?.image}
+              price={item?.price}
+              rate={item?.rating?.rate}
+              rateCount={item?.rating?.count}
+            />
+          ))}
         </div>
       </div>
       <Footer />
