@@ -37,13 +37,13 @@ export default function BigCartBtn({id}){
     if(status){
     
         return (
-<div onClick={handleRemoveFromCart}  className="cursor-pointer transition-colors duration-300 shrink-0 w-[65%] h-[55px] rounded-2xl bg-red-800 text-white font-semibold flex justify-center items-center">Remove Now</div>
+<div onClick={handleRemoveFromCart}  className="cursor-pointer transition-colors duration-300 shrink-0 w-[57%] h-[55px] rounded-2xl bg-red-800 text-white font-semibold flex justify-center items-center">Remove Now</div>
         )
 
     }else{
 
         return (
-         <div onClick={handleAddToCart} className="cursor-pointer transition-colors duration-300 shrink-0 w-[65%] h-[55px] rounded-2xl bg-[#C67C4E] text-white font-semibold flex justify-center items-center">Buy Now</div>
+         <div onClick={handleAddToCart} className="cursor-pointer transition-colors duration-300 shrink-0 w-[57%] h-[55px] rounded-2xl bg-[#C67C4E] text-white font-semibold flex justify-center items-center">Buy Now</div>
         )
 
     }

@@ -35,10 +35,14 @@ export default function ProductItem({
                 </div>
               </div>
               <p className="font-semibold text-md mb-1">{title.substr(0, 9)}</p>
-              <p className="text-xs text-gray-500 mb-2">{category.substr(0, 9)}</p>
+              <p className="text-xs text-gray-500 mb-2"><span>{category.substr(0, 9)}</span></p>
               <div className="w-full flex justify-between items-center">
-                <p className="text-[18px] font-semibold">${price}</p>
-                <CartButtons id={id} />
+                <p className="text-[15px] font-semibold">${price}</p>
+                <div className="flex justify-end items-center gap-1">
+                  <WishlistBtn id={id} />
+                  <CartButtons id={id} />
+                </div>
+                
               </div>
             </div>
     )

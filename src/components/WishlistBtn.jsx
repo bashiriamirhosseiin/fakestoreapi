@@ -22,7 +22,7 @@ export default function WishlistBtn({ id }) {
     remove(id);
   }, []);
 
-  const handleAddToCart = useCallback((e) => {
+  const handleAddToWishlist = useCallback((e) => {
     e.stopPropagation();
     add(id);
   }, []);
@@ -32,9 +32,7 @@ export default function WishlistBtn({ id }) {
       <GoHeartFill
         size={19}
         color="#930000"
-        onClick={() => {
-          remove(id);
-        }}
+        onClick={handleRemoveFromWishlist}
         className="cursor-pointer"
       />
     );
@@ -42,9 +40,7 @@ export default function WishlistBtn({ id }) {
     return (
       <IoHeartOutline
         size={19}
-        onClick={() => {
-          add(id);
-        }}
+        onClick={handleAddToWishlist}
         className="cursor-pointer"
       />
     );

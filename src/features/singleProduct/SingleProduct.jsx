@@ -6,6 +6,7 @@ import CartButtons from "../../components/CartButtons";
 import SecHeader from "../../components/header/SecHeader";
 import { TiStarFullOutline } from "react-icons/ti";
 import BigCartBtn from "../../components/BigCartButtons";
+import WishlistBtn from "../../components/WishlistBtn";
 
 export default function SingleProduct() {
   // get id param:
@@ -68,12 +69,15 @@ export default function SingleProduct() {
             </p>
           </div>
         </div>
-        <div className="w-full flex justify-between items-center px-[6.4%] ">
-          <div className="flex flex-col w-full justify-center items-center">
+        <div className="w-full flex justify-between items-center px-[6.4%]">
+          <div className="max-w-[100px] flex flex-col justify-center items-center">
             <p className="text-sm font-semibold text-[#666]">Price</p>
             <p className="text-lg font-bold text-[#C67C4E]">${data?.price}</p>
           </div>
-          <BigCartBtn id={data.id} />
+          <div className="w-full flex justify-end items-center gap-2">
+            <WishlistBtn id={data.id} />
+            <BigCartBtn id={data.id} />
+          </div>
         </div>
       </div>
     </div>
